@@ -12,10 +12,10 @@ void error(
     std::cout << std::endl;
     std::cout << fileName << ":" << token.line << ":" << ((lineOffset == 0) ? token.lineOffset : lineOffset) << ": ";
     std::cout << "error: " << token.name << " " << text << std::endl;
-    std::cout << "    " << token.line << " |";
+    std::cout << "    " << token.line << " | ";
     std::cout << line << std::endl;
     for (UInt64 j = 1; j <= 4 + UInt64ToString(token.line).size(); j++)std::cout << " ";
-    std::cout << " |";
+    std::cout << " | ";
     if (signStart != 0) {
         for (UInt64 j = 1; j < signStart; j++) std::cout << " ";
         std::cout << "^";

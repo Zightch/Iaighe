@@ -134,41 +134,38 @@ std::string UInt64ToString(UInt64 num) {
     return ans;
 }
 std::string toString(TokenType tp) {
-    if (tp == t_identifier) {
+    if (tp == tt_identifier) {
         return "标识符";
     }
-    if (tp == t_BInteger) {
+    if (tp == tt_BInteger) {
         return "2进制整数";
     }
-    if (tp == t_OInteger) {
+    if (tp == tt_OInteger) {
         return "8进制整数";
     }
-    if (tp == t_DInteger) {
+    if (tp == tt_DInteger) {
         return "10进制整数";
     }
-    if (tp == t_HInteger) {
+    if (tp == tt_HInteger) {
         return "16进制整数";
     }
-    if (tp == t_float) {
+    if (tp == tt_float) {
         return "浮点数";
     }
-    if (tp == t_scienceNumber) {
+    if (tp == tt_scienceNumber) {
         return "科学计数法";
     }
-    if (tp == t_symbol) {
+    if (tp == tt_symbol) {
         return "符号";
     }
-    if (tp == t_string) {
+    if (tp == tt_string) {
         return "字符串";
     }
-    if (tp == t_noe) {
+    if (tp == tt_char) {
+        return "字符";
+    }
+    if (tp == tt_noe) {
         return "空";
-    }
-    if (tp == t_errorString) {
-        return "错误的字符串";
-    }
-    if (tp == t_errorNumber) {
-        return "错误的数字";
     }
     return "未知类型";
 }

@@ -14,14 +14,21 @@ int main(int argc, char *argv[]) {
         if(!tokenStream.empty())
             lineLast = tokenStream[0].line;
         for (auto &i: tokenStream) {//枚举Token
-            if (i.tokenType < 0) {
-                if (i.tokenType == t_errorString) {
-                    std::string tmp = (el[i.line - 1] + "_");
-                    error(argv[1], i, "缺少'\"'", tmp, tmp.size(), 1, i.lineOffset + i.name.size());
-                }
-                if (i.tokenType == t_errorNumber) {
-                    std::string tmp = (el[i.line - 1]);
-                    error(argv[1], i, "数字错误", tmp, i.lineOffset, i.name.size(), i.lineOffset);
+            if (!i.tokenError.empty()) {
+                for(auto &j : i.tokenError) {
+                    if (j.tokenErrorType == te_errorString) {
+                        std::string tmp = (el[i.line - 1] + "_");
+                        error(argv[1], i, "缺少'\"'", tmp, j.lineOffset, j.len, j.lineOffset);
+                    }
+
+                    if (j.tokenErrorType == te_errorChar) {
+                        std::string tmp = (el[i.line - 1] + "_");
+                        error(argv[1], i, "缺少'\''", tmp, j.lineOffset, j.len, j.lineOffset);
+                    }
+                    if (j.tokenErrorType == te_errorNumber) {
+                        std::string tmp = (el[i.line - 1]);
+                        error(argv[1], i, "数字错误", tmp, j.lineOffset, j.len, j.lineOffset);
+                    }
                 }
             } else {
                 if (argc == 3) {

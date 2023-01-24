@@ -30,29 +30,42 @@ std::string UInt64ToString(UInt64);
 
 //词类型
 enum TokenType {
-    t_errorNumber = -2,//数字错误(存在非法数字)
-    t_errorString,//字符串错误(有头无尾)
-    t_noe = 0,//空
-    t_identifier,//标识符
-    t_symbol,//符号
-    t_string,//字符串
-    t_DInteger,//10进制整数
-    t_BInteger,//2进制整数
-    t_OInteger,//8进制整数
-    t_HInteger,//16进制整数
-    t_float,//浮点数
-    t_scienceNumber,//科学计数法
+    tt_noe = 0,//空
+    tt_identifier,//标识符
+    tt_symbol,//符号
+    tt_char,//字符
+    tt_string,//字符串
+    tt_DInteger,//10进制整数
+    tt_BInteger,//2进制整数
+    tt_OInteger,//8进制整数
+    tt_HInteger,//16进制整数
+    tt_float,//浮点数
+    tt_scienceNumber,//科学计数法
 };
 
-std::string toString(TokenType);
+enum TokenErrorType {
+    te_noe,//没有错误
+    te_errorNumber,//数字错误(存在非法数字)
+    te_errorString,//字符串错误(有头无尾)
+    te_errorChar,//字符错误(有头无尾)
+};
+
+struct TokenError {
+    TokenErrorType tokenErrorType = te_noe;
+    UInt64 lineOffset = 0;//行偏移
+    UInt64 len = 0;//错误长度
+};
 
 //词
 struct Token {
-    TokenType tokenType = t_noe;//类型
+    std::vector<TokenError> tokenError;//错误类型
+    TokenType tokenType = tt_noe;//类型
     std::string name;//名称
     UInt64 line = 0;//行号
     UInt64 lineOffset = 0;//行偏移
 };
+
+std::string toString(TokenType);
 
 //词法分析
 std::vector<Token> lexer(const std::string &);
